@@ -17,6 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    //LOIC EST UN CONNARD
     ui->setupUi(this);
     QWidget *window = new QWidget;
     QVBoxLayout *global = new QVBoxLayout;
@@ -50,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
 void MainWindow::solve()
 {
+    //SUPER MEGA FUNCTION SOLVER
     unsigned short num_rows = 3;
     unsigned short num_cols = 3;
     stringstream ss;
@@ -73,7 +75,6 @@ void MainWindow::solve()
         }
         for (int i = 0 ;i < 81 ;i++)
         {
-
             lineEditList[i]->setText( QString(solvedclear[i]));
         }
     } catch(const std::exception& err) {
