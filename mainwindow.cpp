@@ -75,7 +75,6 @@ void MainWindow::solve()
         }
         for (int i = 0 ;i < 81 ;i++)
         {
-
             lineEditList[i]->setText( QString(solvedclear[i]));
         }
 
