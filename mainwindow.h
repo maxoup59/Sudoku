@@ -15,6 +15,8 @@ public slots:
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+     void applyGrid(std::string grid);
+     std::string readGrid();
 
 private:
     Ui::MainWindow *ui;

@@ -30,6 +30,9 @@ MainWindow::MainWindow(QWidget *parent) :
             QLineEdit *lineEdit = new QLineEdit;
             lineEdit->setMaxLength(1);
             lineEdit->setMaximumWidth(20);
+            QRegExp rx("(|\"|/|\\.|[0-9]){30}");
+            lineEdit->setValidator(new QRegExpValidator(rx, this));
+            //lineEdit->setValidator( new QIntValidator(0, 9, this) );
             lineEdit->setMaximumHeight(20);
             lineEditList.append(lineEdit);
             lineEdit->setText(QString('0'));
@@ -40,6 +43,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect ( btnOk, SIGNAL( clicked() ), this, SLOT( solve() ) );
     menu->addWidget(btnOk);
 
+
+    string grid = "xx5x8xxxx78x3xxxxxx04x2xxxx84xx1xxxxx6xxxxxxx1x0x7xxxxxx3x6xxxxxxx5xxxxxxx120xxxx";
+    applyGrid(grid);
+
     unsigned short num_rows = 3;
     unsigned short num_cols = 3;
 
@@ -49,20 +56,32 @@ MainWindow::MainWindow(QWidget *parent) :
     window->show();
 
 }
+void MainWindow::applyGrid(std::string grid)
+{
+    for (int i = 0 ;i < 81 ;i++)
+    {
+        lineEditList[i]->setText( QString(grid[i]));
+    }
+}
+
+std::string MainWindow::readGrid()
+{
+    string read = "";
+    for (int i = 0 ;i < 81 ;i++)
+    {
+        read +=  lineEditList[i]->text().toUtf8().constData();
+    }
+    return read;
+}
+
 void MainWindow::solve()
 {
     //SUPER MEGA FUNCTION SOLVER
     unsigned short num_rows = 3;
     unsigned short num_cols = 3;
-    stringstream ss;
-    string grid = "xx5x8xxxx78x3xxxxxx04x2xxxx84xx1xxxxx6xxxxxxx1x0x7xxxxxx3x6xxxxxxx5xxxxxxx120xxxx";
-    for (int i = 0 ; i < grid.length() ; i++)
-    {
-        ss.put(grid[i]);
-    }
     try {
 
-        Sudoku s(ss.str(), num_rows, num_cols);
+        Sudoku s(readGrid(), num_rows, num_cols);
         DancingLinksSolver dls;
         dls.solve(s);
         std::string solved = s.getString(s);
@@ -74,12 +93,7 @@ void MainWindow::solve()
                 solvedclear += solved[i];
             }
         }
-        for (int i = 0 ;i < 81 ;i++)
-        {
-            lineEditList[i]->setText( QString(solvedclear[i]));
-        }
-
-
+        applyGrid(solvedclear);
     } catch(const std::exception& err) {
         cout << err.what() << endl;
     }
