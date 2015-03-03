@@ -17,7 +17,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-    //LOIC EST UN CONNARD
     ui->setupUi(this);
     QWidget *window = new QWidget;
     QVBoxLayout *global = new QVBoxLayout;
