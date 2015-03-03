@@ -15,9 +15,10 @@ public:
     ~MainWindow();
      void applyGrid(std::string grid);
      std::string readGrid();
-public slots:
-        void solve();
-
+/*public slots:
+        void oldSolve();*/
+private slots:
+        void on_pushButtonSolve_clicked();
 private:
     Ui::MainWindow *ui;
     QList<QLineEdit *> lineEditList;

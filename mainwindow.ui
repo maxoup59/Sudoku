@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>480</height>
+    <width>733</width>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,11 +15,34 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="0">
-     <layout class="QGridLayout" name="gridLayout_2"/>
-    </item>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
     <item row="1" column="0">
-     <layout class="QVBoxLayout" name="verticalLayout"/>
+     <widget class="QPushButton" name="pushButtonSolve">
+      <property name="text">
+       <string>Solve</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <layout class="QGridLayout" name="gridLayoutSudoku">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+     </layout>
     </item>
    </layout>
   </widget>

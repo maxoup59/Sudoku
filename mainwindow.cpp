@@ -8,6 +8,7 @@
 #include <QList>
 #include <QLabel>
 #include <QBoxLayout>
+#include <QMessageBox>
 #include <QMainWindow>//For Qt5
 #include <QPushButton>//For Qt5
 
@@ -17,11 +18,17 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+    /*
+     * ui ???
+     * comme user interface !
+     * c'est bien de faire ta grille à la main
+     * mais enfin, tu peux quand même utiliser Qt Designer
+     * */
     ui->setupUi(this);
-    QWidget *window = new QWidget;
-    QVBoxLayout *global = new QVBoxLayout;
-    QGridLayout *layout = new QGridLayout;
-    QHBoxLayout *menu = new QHBoxLayout;
+    ///QWidget *window = new QWidget;
+    ///QVBoxLayout *global = new QVBoxLayout;
+    ///QGridLayout *layout = new QGridLayout;
+    ///QHBoxLayout *menu = new QHBoxLayout;
     for (int j = 0 ; j < 9 ; j++)
     {
         for (int i = 0 ;i < 9;i++)
@@ -35,24 +42,26 @@ MainWindow::MainWindow(QWidget *parent) :
             lineEdit->setMaximumHeight(20);
             lineEditList.append(lineEdit);
             lineEdit->setText(QString('0'));
-            layout->addWidget(lineEdit,j,i);
+            ///layout->addWidget(lineEdit,j,i);
+            ui->gridLayoutSudoku->addWidget(lineEdit,j,i);
+
         }
     }
-    QPushButton *btnOk = new QPushButton("solve");
-    connect ( btnOk, SIGNAL( clicked() ), this, SLOT( solve() ) );
-    menu->addWidget(btnOk);
+    ///QPushButton *btnOk = new QPushButton("solve");
+    ///connect ( btnOk, SIGNAL( clicked() ), this, SLOT( oldSolve() ) );
+    ///menu->addWidget(btnOk);
 
 
     string grid = "xx5x8xxxx78x3xxxxxx04x2xxxx84xx1xxxxx6xxxxxxx1x0x7xxxxxx3x6xxxxxxx5xxxxxxx120xxxx";
     applyGrid(grid);
 
-    unsigned short num_rows = 3;
-    unsigned short num_cols = 3;
+    unsigned short num_rows = 3; /// useless ?
+    unsigned short num_cols = 3; /// useless ?
 
-    global->addLayout(layout);
-    global->addLayout(menu);
-    window->setLayout(global);
-    window->show();
+    ///global->addLayout(layout);
+    ///global->addLayout(menu);
+    ///window->setLayout(global);
+    ///window->show();
 }
 void MainWindow::applyGrid(std::string grid)
 {
@@ -72,7 +81,7 @@ std::string MainWindow::readGrid()
     return read;
 }
 
-void MainWindow::solve()
+/**void MainWindow::oldSolve()
 {
     //SUPER MEGA FUNCTION SOLVER
     unsigned short num_rows = 3;
@@ -95,9 +104,39 @@ void MainWindow::solve()
     } catch(const std::exception& err) {
         cout << err.what() << endl;
     }
-}
+}**/
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_pushButtonSolve_clicked()
+{
+    QMessageBox msgBox;
+    msgBox.setText("Qt Designer, c'est le bien !");
+    msgBox.exec();
+    //SUPER MEGA FUNCTION SOLVER
+    unsigned short num_rows = 3;
+    unsigned short num_cols = 3;
+    try
+    {
+        Sudoku s(readGrid(), num_rows, num_cols);
+        DancingLinksSolver dls;
+        dls.solve(s);
+        std::string solved = s.getString(s);
+        std::string solvedclear ="";
+        for (int i = 0; i < solved.length() ; i++)
+        {
+            if(solved[i] != ' ')
+            {
+                solvedclear += solved[i];
+            }
+        }
+        applyGrid(solvedclear);
+    }
+    catch(const std::exception& err)
+    {
+        cout << err.what() << endl;
+    }
 }
