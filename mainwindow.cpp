@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 void MainWindow::solve()
 {
+    //SUPER MEGA FUNCTION SOLVER
     unsigned short num_rows = 3;
     unsigned short num_cols = 3;
     stringstream ss;
