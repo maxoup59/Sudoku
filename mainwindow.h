@@ -10,13 +10,13 @@ class MainWindow;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-public slots:
-        void solve();
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
      void applyGrid(std::string grid);
      std::string readGrid();
+public slots:
+        void solve();
 
 private:
     Ui::MainWindow *ui;
