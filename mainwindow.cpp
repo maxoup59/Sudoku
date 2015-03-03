@@ -10,6 +10,7 @@
 #include <QBoxLayout>
 #include <QMainWindow>//For Qt5
 #include <QPushButton>//For Qt5
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -21,7 +22,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QVBoxLayout *global = new QVBoxLayout;
     QGridLayout *layout = new QGridLayout;
     QHBoxLayout *menu = new QHBoxLayout;
-
     for (int j = 0 ; j < 9 ; j++)
     {
         for (int i = 0 ;i < 9;i++)
@@ -46,8 +46,8 @@ MainWindow::MainWindow(QWidget *parent) :
     global->addLayout(menu);
     window->setLayout(global);
     window->show();
-
 }
+
 void MainWindow::solve()
 {
     unsigned short num_rows = 3;
@@ -59,7 +59,6 @@ void MainWindow::solve()
         ss.put(grid[i]);
     }
     try {
-
         Sudoku s(ss.str(), num_rows, num_cols);
         DancingLinksSolver dls;
         dls.solve(s);
@@ -77,12 +76,9 @@ void MainWindow::solve()
 
             lineEditList[i]->setText( QString(solvedclear[i]));
         }
-
-
     } catch(const std::exception& err) {
         cout << err.what() << endl;
     }
-
 }
 
 MainWindow::~MainWindow()
