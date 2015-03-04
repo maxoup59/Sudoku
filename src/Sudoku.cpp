@@ -199,19 +199,19 @@ std::ostream& operator<<(std::ostream& os, const Sudoku& sudoku) {
         // If so, print a line before the next row.
         if (i % region_num_row == 0 && i > 0) {
             for (unsigned int k = 0; k < sudoku.size(); k++) {
-                os << "--";
+                //os << "--";
             }
             for (unsigned int k = 2; k < sudoku.size() / region_num_col; k++) {
-                os << "--";
+                //os << "--";
             }
-            os << "-" << std::endl;
+            //os << "-" << std::endl;
         }
 
         // Print a row.
         for (unsigned int j = 0; j < sudoku.size(); ++j) {
             // Mark the sepration between region.
             if (j != 0 && j % region_num_col == 0) {
-                os << "| ";
+                //os << "| ";
             }
             // Print cell.
             os << sudoku.cell(i, j);
@@ -221,15 +221,15 @@ std::ostream& operator<<(std::ostream& os, const Sudoku& sudoku) {
     return os;
 }
 
-std::string Sudoku::getString(const Sudoku& sudoku) {
-   std::stringstream os;
-    unsigned int region_num_row = sudoku.region_num_rows();
-    unsigned int region_num_col = sudoku.region_num_columns();
-    for (unsigned int i = 0; i < sudoku.size(); ++i) {
-        for (unsigned int j = 0; j < sudoku.size(); ++j) {
-            os << sudoku.cell(i, j);
-        }
-        //os += std::endl;
-    }
-    return os.str();
+std::string Sudoku::getString()
+{
+    std::stringstream os;
+     unsigned int region_num_row = this->region_num_rows();
+     unsigned int region_num_col = this->region_num_columns();
+     for (unsigned int i = 0; i < this->size(); ++i) {
+         for (unsigned int j = 0; j < this->size(); ++j) {
+             os << this->cell(i, j);
+         }
+     }
+     return os.str();
 }

@@ -25,10 +25,6 @@ MainWindow::MainWindow(QWidget *parent) :
      * mais enfin, tu peux quand même utiliser Qt Designer
      * */
     ui->setupUi(this);
-    ///QWidget *window = new QWidget;
-    ///QVBoxLayout *global = new QVBoxLayout;
-    ///QGridLayout *layout = new QGridLayout;
-    ///QHBoxLayout *menu = new QHBoxLayout;
     for (int j = 0 ; j < 9 ; j++)
     {
         for (int i = 0 ;i < 9;i++)
@@ -36,32 +32,25 @@ MainWindow::MainWindow(QWidget *parent) :
             QLineEdit *lineEdit = new QLineEdit;
             lineEdit->setMaxLength(1);
             lineEdit->setMaximumWidth(20);
-            QRegExp rx("(|\"|/|\\.|[0-9]){30}");
+            QRegExp rx("(|\"|x|\\.|[0-9]){30}");
             lineEdit->setValidator(new QRegExpValidator(rx, this));
-            //lineEdit->setValidator( new QIntValidator(0, 9, this) );
             lineEdit->setMaximumHeight(20);
             lineEditList.append(lineEdit);
             lineEdit->setText(QString('0'));
-            ///layout->addWidget(lineEdit,j,i);
             ui->gridLayoutSudoku->addWidget(lineEdit,j,i);
-
         }
     }
-    ///QPushButton *btnOk = new QPushButton("solve");
-    ///connect ( btnOk, SIGNAL( clicked() ), this, SLOT( oldSolve() ) );
-    ///menu->addWidget(btnOk);
-
-
-    string grid = "xx5x8xxxx78x3xxxxxx04x2xxxx84xx1xxxxx6xxxxxxx1x0x7xxxxxx3x6xxxxxxx5xxxxxxx120xxxx";
+    string grid = "4xxx3xxx2"
+            "x2xxx135x"
+            "x7x02xxxx"
+            "x4xxxx6xx"
+            "1x2xxx0x5"
+            "xx8xxxx7x"
+            "xxxx54x6x"
+            "x648xxx1x"
+            "3xxx7xxx0"
+;
     applyGrid(grid);
-
-    unsigned short num_rows = 3; /// useless ?
-    unsigned short num_cols = 3; /// useless ?
-
-    ///global->addLayout(layout);
-    ///global->addLayout(menu);
-    ///window->setLayout(global);
-    ///window->show();
 }
 void MainWindow::applyGrid(std::string grid)
 {
@@ -81,31 +70,6 @@ std::string MainWindow::readGrid()
     return read;
 }
 
-/**void MainWindow::oldSolve()
-{
-    //SUPER MEGA FUNCTION SOLVER
-    unsigned short num_rows = 3;
-    unsigned short num_cols = 3;
-    try {
-
-        Sudoku s(readGrid(), num_rows, num_cols);
-        DancingLinksSolver dls;
-        dls.solve(s);
-        std::string solved = s.getString(s);
-        std::string solvedclear ="";
-        for (int i = 0; i < solved.length() ; i++)
-        {
-            if(solved[i] != ' ')
-            {
-                solvedclear += solved[i];
-            }
-        }
-        applyGrid(solvedclear);
-    } catch(const std::exception& err) {
-        cout << err.what() << endl;
-    }
-}**/
-
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -124,7 +88,7 @@ void MainWindow::on_pushButtonSolve_clicked()
         Sudoku s(readGrid(), num_rows, num_cols);
         DancingLinksSolver dls;
         dls.solve(s);
-        std::string solved = s.getString(s);
+        std::string solved = s.getString();
         std::string solvedclear ="";
         for (int i = 0; i < solved.length() ; i++)
         {

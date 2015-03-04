@@ -100,12 +100,13 @@ public:
     //! \return True if both grids are equals.
     bool operator==(const Sudoku& rhs);
 
+    std::string getString();
+
     //! \brief Comparaison operator
     //! \param rhs RHS sudoku.
     //! \return True if both grids are different.
     bool operator!=(const Sudoku& rhs);
 
-    std::string getString(const Sudoku& sudoku);
 protected:
 
     unsigned short grid_size;       /**< Size of the grid: 4x4, 9x9, etc. */
