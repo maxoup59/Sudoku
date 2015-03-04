@@ -5,3 +5,7 @@ Implementation : Mathieu Turcotte
 
 EDI : Qt
 
+
+TODO :
+
+- Camera grid scanner
